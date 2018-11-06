@@ -6,11 +6,20 @@ import { Route, BrowserRouter, Link } from 'react-router-dom'
 import Home from './Home.js'
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      showLogin: false
+    }
+  }
+
   renderLogin(routerData) {
+   // this.setState({showLogin: true})
     return (<Authentication endpoint = {'/login'} />)
   }
 
   renderSignup(routerData) {
+    //this.setState({showLogin: true})
     return (<Authentication endpoint= {'/signup'} />)
   }
 

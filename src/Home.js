@@ -72,8 +72,8 @@ class Home extends Component {
         return (
             <div className='homepage'>
                 <div>
-                (<Link to={"/login/"}> Login </Link>)
-                (<Link to={"/signup/"}> Signup </Link>)
+                <Link to={"/login/"}> Login </Link>
+                <Link to={"/signup/"}> Signup </Link>
                 </div>
                 <div>Alibay logo here</div>
                 <div>
