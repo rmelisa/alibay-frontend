@@ -36,22 +36,26 @@ class Authentication extends Component{
                id: parsed.id
            })
         }
-        // cb = cb.bind(this)
-        // fetch(this.props.endpoint,{
-        //     method: 'POST',
-        //     body: body // body is defined above
-        // }).then(function(res){
-        //     return res.text()
-        // }).then(cb)
+        cb = cb.bind(this)
+        fetch(this.props.endpoint,{
+            method: 'POST',
+            body: body // body is defined above
+        }).then(function(res){
+            return res.text()
+        }).then(cb)
     }
     
     render(){
-        return(
+        return(<div>
         <form onSubmit={this.handleSubmit}>
+            Username
             <input type="text" onChange={this.handleUsernameChange}></input>
+            Password
             <input type="text" onChange={this.handlePasswordChange}></input>
             <input type ="submit"></input>
-        </form>)
+        </form>
+        </div>)
+
     }
 }
 let connectedAuthentication = connect()(Authentication)
