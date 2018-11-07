@@ -13,6 +13,10 @@ class Seller extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this)
         this.handleReviewInput = this.handleReviewInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.getAllReviews =this.getAllReviews.bind(this)
+    }
+    componentDidMount(){
+        this.getAllReviews()
     }
 
     handleUsernameInput(event) {
@@ -48,16 +52,27 @@ class Seller extends Component {
         })
 
     }
+    getAllReviews(){
+        let callBack = function (response) {
+            let parsed = JSON.parse(response)
+            console.log(parsed)
+        }
+        callBack = callBack.bind(this)
+        fetch('http://demo5206055.mockable.io/getAllReviews',{
+            method: 'GET'
+        }).then(function(x){
+            return x.text()
+        }).then(callBack)
+    }
 
     render() {
         return (<div className="sellerPage">
             Seller name:
         <div>{this.state.usrernameInput}</div>
             Reviews:
-        <div>{this.allReviews}</div>
+        <div>{this.getAllReviews}</div>
             Add a review:
         <form onSubmit={this.handleSubmit}>
-                
                 <input type="text" onChange={this.handleUsernameInput}></input>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
                 <input type="submit"/>
