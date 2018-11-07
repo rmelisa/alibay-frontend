@@ -82,7 +82,7 @@ class Home extends Component {
                 <div className='mainContainer'>
                     <div className="dropdown">
                         <button className="dropbtn">Categories</button>
-                        <div class="dropdown-content">
+                        <div className="dropdown-content">
                         <div onClick={function () {
                                 this.setState({category: 'all'})
                                 this.getItems()

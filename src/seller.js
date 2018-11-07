@@ -60,7 +60,7 @@ class Seller extends Component {
                 
                 <input type="text" onChange={this.handleUsernameInput}></input>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
-                <input type="submit"></input>
+                <input type="submit"/>
             </form>
         </div>)
     }
