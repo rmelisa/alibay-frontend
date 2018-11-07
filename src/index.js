@@ -8,8 +8,8 @@ import { createStore } from 'redux'
 
 //Reducer:
 let reducer = function( state, action){
-    if(action.type ==="setSessionId"){
-        return{...state, session: action.id }
+    if(action.type ==="setSession"){
+        return{...state, session: action.sessionID }
     }
     if(action.type === "setItemID"){
         return{...state, itemID: action.id}
@@ -20,7 +20,7 @@ let reducer = function( state, action){
 //CreateStore:
 const store = createStore(
     reducer, // reducer
-    {}, // initial state
+    {session: undefined}, // initial state
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

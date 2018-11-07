@@ -2,11 +2,12 @@ import React, {Component} from "react";
 import { connect } from 'react-redux'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
 import './home.css';
+import {withRouter} from 'react-router'
 
 
 class Home extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             category: 'all', //need to agree on categories
             items: [
@@ -16,7 +17,8 @@ class Home extends Component {
                     price: '10$',
                     description: 'Nice paiting',
                     category: 'home',
-                    itemID: 1
+                    itemID: 1,
+                    seller: 'Elisa'
                 }
             ],
             itemsDisplayed: []
@@ -64,7 +66,12 @@ class Home extends Component {
     }
 
     handleAddItem() {
-        return (<Link to= {"/addItem/"}></Link>)     
+        if (this.props.sessionID) {
+            this.props.history.push('/addItem/')  
+        }else{
+            alert('You must be logged in to add an item')
+        }
+          
     }
 
     render(){
@@ -117,5 +124,8 @@ class Home extends Component {
     }
 }
 
-let connectedHome = connect()(Home)
+let connectedHome = connect(function(store){
+    return {sessionID: store.session
+            }
+  })(withRouter(Home))
 export default connectedHome

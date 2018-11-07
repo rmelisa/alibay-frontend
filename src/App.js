@@ -6,17 +6,20 @@ import ItemDetails from './ItemDetails.js'
 import { connect } from 'react-redux'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
 import Home from './Home.js'
+import AddItem from './AddItem.js'
+
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       showLogin: false
     }
+    this.renderAddItem = this.renderAddItem.bind(this)
   }
 
   renderLogin(routerData) {
-   // this.setState({showLogin: true})
+   //this.setState({showLogin: true})
     return (<Authentication endpoint = {'/login'} />)
   }
 
@@ -31,13 +34,13 @@ class App extends Component {
 
   renderDetails(routerData) {
     let itemID = routerData.match.params.itemID;
-   //to be coded
-   return (<ItemDetails endpoint={'/details'}/>)
+    return (<ItemDetails itemID={itemID}/>)
   }
 
 
   renderAddItem(routerData) {
-    return //to be coded
+    return (<AddItem/>)
+    
   }
   renderSeller(){
     return (<Seller endpoint={'/seller'}/>)
@@ -48,7 +51,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact={true} path='/home/' render={this.renderHome} />
+          <Route exact={true} path='/' render={this.renderHome} />
           <Route exact={true} path='/login/' render={this.renderLogin} />
           <Route exact={true} path='/signup/' render={this.renderSignup} />
           <Route exact={true} path='/addItem/' render={this.renderAddItem} />
@@ -60,4 +63,8 @@ class App extends Component {
   }
 }
 
-export default App;
+let connectedApp = connect(function(store){
+  return {sessionID: store.session
+          }
+})(App)
+export default connectedApp;

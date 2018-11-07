@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux'
+import {withRouter} from 'react-router'
 
 class Authentication extends Component{
     constructor(props){
@@ -31,13 +32,19 @@ class Authentication extends Component{
         })
         let cb = function(resBody){
             let parsed = JSON.parse(resBody)
-           this.props.dispatch({  // passing this action to the reducer by specifing the type of action
-               type: "setSessionId",
-               id: parsed.id
-           })
+            if (parsed.response.status) {
+                this.props.dispatch({  // passing this action to the reducer by specifing the type of action
+                    type: "setSession",
+                    sessionID: parsed.response.sessionID
+
+                })
+                this.props.history.push('/')
+            }else{
+                alert('Failed login or signup, please try again')
+            }
         }
         cb = cb.bind(this)
-        fetch(this.props.endpoint,{
+        fetch('http://demo5206055.mockable.io/' + this.props.endpoint,{
             method: 'POST',
             body: body // body is defined above
         }).then(function(res){
@@ -56,5 +63,5 @@ class Authentication extends Component{
         </form></div>)
     }
 }
-let connectedAuthentication = connect()(Authentication)
+let connectedAuthentication = connect()(withRouter(Authentication))
 export default connectedAuthentication

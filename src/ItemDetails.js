@@ -47,7 +47,9 @@ class ItemDetails extends Component {
         }).then(function (x) {
             return x.text()
         }).then(callBack)
+        
     }
+    
 
     render() {
         return (
