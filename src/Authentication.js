@@ -6,7 +6,7 @@ class Authentication extends Component{
         super(props)
         this.state = {
             usernameInput : "",
-            passwordInput :""
+            passwordInput : ""
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -48,14 +48,12 @@ class Authentication extends Component{
     render(){
         return(<div>
         <form onSubmit={this.handleSubmit}>
-            Username
+            Username:
             <input type="text" onChange={this.handleUsernameChange}></input>
-            Password
+            Password:
             <input type="text" onChange={this.handlePasswordChange}></input>
             <input type ="submit"></input>
-        </form>
-        </div>)
-
+        </form></div>)
     }
 }
 let connectedAuthentication = connect()(Authentication)

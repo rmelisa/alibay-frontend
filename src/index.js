@@ -8,6 +8,12 @@ import { createStore } from 'redux'
 
 //Reducer:
 let reducer = function( state, action){
+    if(action.type ==="setSessionId"){
+        return{...state, session: action.id }
+    }
+    if(action.type === "setItemID"){
+        return{...state, itemID: action.id}
+    }
 
     return state
 }
