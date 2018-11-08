@@ -40,10 +40,10 @@ class Home extends Component {
           let parsedResponse = JSON.parse(response);
           this.setState({ items: parsedResponse.result });
           if (this.state.category === 'all') {
-            this.setState({itemsDisplayed: this.state.items})
+            this.setState({itemsDisplayed: parsedResponse.result})
             return
         }
-        let itemsArr = this.state.items.filter(function (item){
+        let itemsArr = parsedResponse.result.filter(function (item){
             return item.category === this.state.category
         }.bind(this))
         this.setState({itemsDisplayed: itemsArr})//need to return array of items from server

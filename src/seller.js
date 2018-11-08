@@ -7,13 +7,14 @@ class Seller extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            usrernameInput: "",
-            reviewInput: ""
+            reviewInput: "",
+            reviews: []
         }
         this.handleUsernameInput = this.handleUsernameInput.bind(this)
         this.handleReviewInput = this.handleReviewInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.getAllReviews =this.getAllReviews.bind(this)
+        this.renderReviews = this.renderReviews.bind(this)
     }
     componentDidMount(){
         this.getAllReviews()
@@ -36,12 +37,11 @@ class Seller extends Component {
             username: this.props.username
         })
         let callBack = function (response) {
-            let parsed = JSON.parsed(response)
-            this.props.dispatch({
-                // need an action with this type in the reducer
-                type: "setSessionId",
-                id: parsed.id
-            })
+            let parsed = JSON.parse(response)
+            if (parsed.status) {
+                this.getAllReviews()
+            }
+            
         }
         callBack = callBack.bind(this)
         fetch('/addReview', { //need an endpoint in server.js 
@@ -49,13 +49,15 @@ class Seller extends Component {
             body: body // body is defined above
         }).then(function (res) {
             return res.text()
-        })
+        }).then(callBack)
+
+        this.setState({reviewInput: ''})
 
     }
     getAllReviews(){
         let callBack = function (response) {
             let parsed = JSON.parse(response)
-            console.log(parsed.result)
+            this.setState({reviews: parsed.result})
         }
         callBack = callBack.bind(this)
         fetch('/getAllReviews',{
@@ -68,12 +70,18 @@ class Seller extends Component {
         }).then(callBack)
     }
 
+    renderReviews(review){
+        return (
+            <li>{review}</li>
+        )
+    }
+
     render() {
         return (<div className="sellerPage">
             Seller name:
         <div>{this.state.usrernameInput}</div>
             Reviews:
-        <div>{this.getAllReviews}</div>
+        <div>Reviews: <ul>{this.state.reviews.map(this.renderReviews)}</ul></div>
             Add a review:
         <form onSubmit={this.handleSubmit}>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
