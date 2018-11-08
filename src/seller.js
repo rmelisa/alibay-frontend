@@ -32,8 +32,8 @@ class Seller extends Component {
     handleSubmit(event) {
         event.preventDefault()
         let body = JSON.stringify({
-            usrername: this.state.usrernameInput,
-            review: this.state.reviewInput
+            review: this.state.reviewInput,
+            username: this.props.username
         })
         let callBack = function (response) {
             let parsed = JSON.parsed(response)
@@ -59,7 +59,10 @@ class Seller extends Component {
         }
         callBack = callBack.bind(this)
         fetch('/getAllReviews',{
-            method: 'GET'
+            method: 'POST',
+            body:JSON.stringify({
+                username: this.props.username
+            })
         }).then(function(x){
             return x.text()
         }).then(callBack)
@@ -73,7 +76,6 @@ class Seller extends Component {
         <div>{this.getAllReviews}</div>
             Add a review:
         <form onSubmit={this.handleSubmit}>
-                <input type="text" onChange={this.handleUsernameInput}></input>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
                 <input type="submit"/>
             </form>

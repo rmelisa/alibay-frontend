@@ -41,8 +41,9 @@ class App extends Component {
     return (<AddItem/>)
     
   }
-  renderSeller(){
-    return (<Seller endpoint={'/seller'}/>)
+  renderSeller(routerData){
+    let username = routerData.match.params.username;
+    return (<Seller username={username}/>)
 }
   
 
@@ -54,7 +55,7 @@ class App extends Component {
           <Route exact={true} path='/login/' render={this.renderLogin} />
           <Route exact={true} path='/signup/' render={this.renderSignup} />
           <Route exact={true} path='/addItem/' render={this.renderAddItem} />
-          <Route exact={true} path='/seller/' render={this.renderSeller}/>
+          <Route exact={true} path='/seller/:username' render={this.renderSeller}/>
           <Route exact={true} path= '/details/:itemID' render={this.renderDetails} />
         </div>
       </BrowserRouter>

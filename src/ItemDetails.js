@@ -63,7 +63,7 @@ class ItemDetails extends Component {
                 <div>Title:{this.state.item.name}</div>
                 <div>Price:{this.state.item.price}</div>
                 <div>Details:{this.state.item.description}</div>
-                <div>Seller:<Link to={"/seller/"}>{this.state.item.username}</Link> </div>
+                <div>Seller:<Link to={"/seller/" + this.state.item.username}>{this.state.item.username}</Link> </div>
                 <form>
                     <div className="button">
                         <input type="submit" />
