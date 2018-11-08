@@ -47,7 +47,7 @@ class ItemDetails extends Component {
         }).then(function (x) {
             return x.text()
         }).then(callBack)
-        
+
     }
     
 
@@ -58,7 +58,7 @@ class ItemDetails extends Component {
                 <div>Item Details:</div>
                 <div>
                     <img src={this.state.item.image}></img>
-                    <div>Seller name:<Link to={"/seller/"}></Link></div>
+                    <div>Seller name:<Link to={"/seller/"}>{this.state.item.seller}</Link></div>
                     {/* <div>Seller Reviews:{Reviews}</div> */}
                 </div>
                 <div>Title:{this.state.item.name}</div>
