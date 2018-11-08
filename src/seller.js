@@ -55,7 +55,7 @@ class Seller extends Component {
     getAllReviews(){
         let callBack = function (response) {
             let parsed = JSON.parse(response)
-            console.log(parsed)
+            console.log(parsed.result)
         }
         callBack = callBack.bind(this)
         fetch('/getAllReviews',{

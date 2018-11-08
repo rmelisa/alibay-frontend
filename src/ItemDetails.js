@@ -18,7 +18,7 @@ class ItemDetails extends Component {
         let callBack = function (response) {
             let parsed = JSON.parse(response)
             this.setState({
-                item: parsed
+                item: parsed.result
             })
         }
         callBack = callBack.bind(this)
@@ -57,14 +57,13 @@ class ItemDetails extends Component {
 
                 <div>Item Details:</div>
                 <div>
-                    <img src={this.state.item.image}></img>
-                    <div>Seller name:<Link to={"/seller/"}>{this.state.item.seller}</Link></div>
+                    <img src={'/' + this.state.item.image}></img>
                     {/* <div>Seller Reviews:{Reviews}</div> */}
                 </div>
                 <div>Title:{this.state.item.name}</div>
                 <div>Price:{this.state.item.price}</div>
                 <div>Details:{this.state.item.description}</div>
-                <div>Seller: {this.state.item.seller}</div>
+                <div>Seller:<Link to={"/seller/"}>{this.state.item.username}</Link> </div>
                 <form>
                     <div className="button">
                         <input type="submit" />

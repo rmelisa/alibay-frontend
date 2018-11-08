@@ -4,20 +4,23 @@ import { Route, BrowserRouter, Link } from 'react-router-dom'
 import {withRouter} from 'react-router'
 
 class AddItem extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
-            filename: '/placeholder.png',
+            filename: 'placeholder.png',
             name: '', 
             price: null,
             description: '',
-            sessionID: undefined
+            sessionID: props.sessionID,
+            category: '',
+            username: props.username
         }
         this.handleNameChange = this.handleNameChange.bind(this)
         this.handlePriceChange = this.handlePriceChange.bind(this)
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
         this.uploadFile = this.uploadFile.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleCategory = this.handleCategory.bind(this)
     }
 
     uploadFile(x) {
@@ -53,9 +56,15 @@ class AddItem extends Component {
         })
     }
 
+    handleCategory(event){
+        let category = event.target.value
+        this.setState({
+            category: category
+        })
+    }
+
     handleSubmit(event){
         event.preventDefault()
-        this.setState({sessionID: this.props.sessionID})
         fetch('/addItem', {
             method: 'POST',
             body: JSON.stringify(this.state)
@@ -76,11 +85,18 @@ class AddItem extends Component {
         return (<div>
             <div>Add item for sale</div>
             <form onSubmit={this.handleSubmit}> 
-                <img src={this.state.filename}></img>
+                <img src={`/${this.state.filename}`}></img>
                 <div>Upload image: <input type="file" id="input" onChange={e => this.uploadFile(e.target.files[0])} /> </div>
                 <div>Name: <input type='text' onChange={this.handleNameChange}/></div>
                 <div>Price: <input type='text' onChange={this.handlePriceChange}/></div>
-                <div>Description: <input type='text' onChange={this.handleDescriptionChange}/></div> 
+                <div>Description: <input type='text' onChange={this.handleDescriptionChange}/></div>
+                <div>Choose category:
+                    <select onChange={this.handleCategory}>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home</option>
+                        <option value="electronics">Electronics</option>
+                    </select>
+                </div> 
                 <div><input type='submit'/></div>  
             </form>
 
@@ -90,7 +106,9 @@ class AddItem extends Component {
 }
 
 let connectedAddItem = connect(function(store){
-    return {sessionID: store.session
+    return {
+        sessionID: store.session,
+        username: store.username
             }
   })(withRouter(AddItem))
 export default connectedAddItem

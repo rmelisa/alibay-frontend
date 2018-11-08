@@ -14,6 +14,9 @@ let reducer = function( state, action){
     if(action.type === "setItemID"){
         return{...state, itemID: action.id}
     }
+    if(action.type === "setUsername") {
+        return {...state, username: action.username}
+    }
 
     return state
 }

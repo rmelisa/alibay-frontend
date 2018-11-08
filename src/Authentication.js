@@ -32,10 +32,15 @@ class Authentication extends Component{
         })
         let cb = function(resBody){
             let parsed = JSON.parse(resBody)
-            if (parsed.response.status) {
+            if (parsed.status) {
                 this.props.dispatch({  // passing this action to the reducer by specifing the type of action
                     type: "setSession",
-                    sessionID: parsed.response.sessionID
+                    sessionID: parsed.sessionID
+
+                })
+                this.props.dispatch({  // passing this action to the reducer by specifing the type of action
+                    type: "setUsername",
+                    username: this.state.usernameInput
 
                 })
                 this.props.history.push('/')

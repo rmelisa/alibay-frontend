@@ -8,7 +8,6 @@ import { Route, BrowserRouter, Link } from 'react-router-dom'
 import Home from './Home.js'
 import AddItem from './AddItem.js'
 
-
 class App extends Component {
   constructor(props) {
     super(props)

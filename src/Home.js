@@ -34,23 +34,22 @@ class Home extends Component {
 
 
     getItems() {
-        // fetch("/getAllItems") //confirm name
-        // .then(response => response.text())
-        // .then(response => {
-        //   let parsedResponse = JSON.parse(response);
-        //   this.setState({ items: parsedResponse.items });//need to return array of items from server
-        // })
-        // .catch(err => console.log(err));
-
-        if (this.state.category === 'all') {
+        fetch("/getAllItems") //confirm name
+        .then(response => response.text())
+        .then(response => {
+          let parsedResponse = JSON.parse(response);
+          this.setState({ items: parsedResponse.result });
+          if (this.state.category === 'all') {
             this.setState({itemsDisplayed: this.state.items})
             return
         }
         let itemsArr = this.state.items.filter(function (item){
             return item.category === this.state.category
         }.bind(this))
-        this.setState({itemsDisplayed: itemsArr})
-
+        this.setState({itemsDisplayed: itemsArr})//need to return array of items from server
+        })
+        .catch(err => console.log(err));
+        
     }
 
     renderItems(item) {
@@ -58,11 +57,11 @@ class Home extends Component {
         return (<div className='items'>
                 <img src={item.image}></img>
                 <div>
-               <div>Product name: <Link to= {"/details/" + item.itemID}>{item.name}</Link> </div> 
-                    <div>Price: {item.price}</div>
-                    <div>Description: {item.description}</div>
+                <div>Product name: <Link to= {"/details/" + item.itemID}>{item.name}</Link> </div> 
+                <div>Price: {item.price}$</div>
+                <div>Description: {item.description}</div>
                 </div>
-            </div> )
+            </div>)
     }
 
     handleAddItem() {
