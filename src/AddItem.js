@@ -27,7 +27,7 @@ class AddItem extends Component {
         .then(function(res){
             return res.text()
         }).then(function(res){
-            let parsed = JSON.parse(res)//check what is being sent back
+            let parsed = res//check what is being sent back
             this.setState({filename: parsed})
         }.bind(this))
     }
@@ -56,7 +56,7 @@ class AddItem extends Component {
     handleSubmit(event){
         event.preventDefault()
         this.setState({sessionID: this.props.sessionID})
-        fetch('http://demo5206055.mockable.io/addItem', {
+        fetch('/addItem', {
             method: 'POST',
             body: JSON.stringify(this.state)
         }).then(function(res){

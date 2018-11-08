@@ -44,7 +44,7 @@ class Authentication extends Component{
             }
         }
         cb = cb.bind(this)
-        fetch('http://demo5206055.mockable.io/' + this.props.endpoint,{
+        fetch(this.props.endpoint,{
             method: 'POST',
             body: body // body is defined above
         }).then(function(res){

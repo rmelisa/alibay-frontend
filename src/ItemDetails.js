@@ -22,7 +22,7 @@ class ItemDetails extends Component {
             })
         }
         callBack = callBack.bind(this)
-        fetch('http://demo5206055.mockable.io/itemDetails', {
+        fetch('/itemDetails', {
             method: 'POST',
             body: JSON.stringify({
                 itemID: this.props.itemID

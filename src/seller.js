@@ -58,7 +58,7 @@ class Seller extends Component {
             console.log(parsed)
         }
         callBack = callBack.bind(this)
-        fetch('http://demo5206055.mockable.io/getAllReviews',{
+        fetch('/getAllReviews',{
             method: 'GET'
         }).then(function(x){
             return x.text()
