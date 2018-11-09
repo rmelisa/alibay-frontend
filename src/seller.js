@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 
 class Seller extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class Seller extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.getAllReviews =this.getAllReviews.bind(this)
         this.renderReviews = this.renderReviews.bind(this)
+        this.backToHome = this.backToHome.bind(this)
     }
     componentDidMount() {
         this.getAllReviews()
@@ -75,6 +77,9 @@ class Seller extends Component {
             <li>{review}</li>
         )
     }
+    backToHome(){
+        this.props.history.push('/')
+    }
 
     render() {
         return (<div className="sellerPage">
@@ -86,9 +91,10 @@ class Seller extends Component {
         <form onSubmit={this.handleSubmit}>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
                 <input type="submit" />
-            </form>
+        </form>
+        <button onClick={this.backToHome}>Back to Shopping</button>
         </div>)
     }
 }
-let connectedSeller = connect()(Seller)
+let connectedSeller = connect()(withRouter(Seller))
 export default connectedSeller

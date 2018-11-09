@@ -21,6 +21,7 @@ class AddItem extends Component {
         this.uploadFile = this.uploadFile.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleCategory = this.handleCategory.bind(this)
+        this.backToHome = this.backToHome.bind(this)
     }
 
     uploadFile(x) {
@@ -81,6 +82,10 @@ class AddItem extends Component {
         }.bind(this))
     }
 
+    backToHome(){
+        this.props.history.push('/')
+    }
+
     render() {
         return (<div>
             <div>Add item for sale</div>
@@ -98,6 +103,7 @@ class AddItem extends Component {
                     </select>
                 </div> 
                 <div><input type='submit'/></div>  
+                <button onClick={this.backToHome}>Back to Shopping</button>
             </form>
 
 

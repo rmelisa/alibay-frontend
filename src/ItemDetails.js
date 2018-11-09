@@ -15,6 +15,7 @@ class ItemDetails extends Component {
             item: {}
         }
         this.handleClick = this.handleClick.bind(this)
+        this.backToHome = this.backToHome.bind(this)
     }
     componentDidMount() {
         let callBack = function (response) {
@@ -70,6 +71,10 @@ class ItemDetails extends Component {
 
     }
 
+    backToHome(){
+        this.props.history.push('/')
+    }
+
     render() {
         return (
             <div className="ItemDetails">
@@ -88,6 +93,8 @@ class ItemDetails extends Component {
                         <input type="submit" value="Add to cart" onClick={this.handleClick} />
                     </div>
                 </form>
+                <button onClick={this.backToHome}>Back to Shopping</button>
+                
             </div>)
     }
 }
