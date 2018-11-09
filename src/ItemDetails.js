@@ -53,14 +53,20 @@ class ItemDetails extends Component {
     }
     handleClick(event) {
         event.preventDefault();
-        this.props.dispatch({
-            type: "addToCart",
-            itemID :this.props.itemID,
-            name: this.state.item.name,
-            description: this.state.item.description,
-            price: this.state.item.price
-        })
-        this.props.history.push('/cart')
+        if (this.props.sessionID) {
+            this.props.dispatch({
+                type: "addToCart",
+                itemID :this.props.itemID,
+                name: this.state.item.name,
+                description: this.state.item.description,
+                price: this.state.item.price,
+                image: this.state.item.image
+
+            })
+            this.props.history.push('/cart/')
+        } else {
+            alert('Please login to add an item to the shopping cart.')
+        }
 
     }
 
@@ -71,7 +77,7 @@ class ItemDetails extends Component {
                 <div>Item Details:</div>
                 <div>
                     <img src={'/' + this.state.item.image}></img>
-                    {/* <div>Seller Reviews:{Reviews}</div> */}
+                  
                 </div>
                 <div>Title:{this.state.item.name}</div>
                 <div>Price:{this.state.item.price}</div>
@@ -87,5 +93,9 @@ class ItemDetails extends Component {
 }
 
 
-let connectedItemDetails = connect()(withRouter(ItemDetails))
+let connectedItemDetails = connect(function (store) {
+    return {
+        sessionID: store.session
+    }
+})(withRouter(ItemDetails))
 export default connectedItemDetails

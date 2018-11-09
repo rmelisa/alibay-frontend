@@ -10,22 +10,15 @@ class Home extends Component {
         super(props)
         this.state = {
             category: 'all', //need to agree on categories
-            items: [
-                {
-                    name: 'painting',
-                    image: 'fake.jpg',
-                    price: '10$',
-                    description: 'Nice paiting',
-                    category: 'home',
-                    itemID: 1,
-                    seller: 'Elisa'
-                }
-            ],
+            searchInput: '', 
             itemsDisplayed: []
         }
         this.getItems = this.getItems.bind(this)
         this.renderItems = this.renderItems.bind(this)
         this.handleAddItem = this.handleAddItem.bind(this)
+        this.handleShoppingCart = this.handleShoppingCart.bind(this)
+        this.handleSearchChange = this.handleSearchChange.bind(this)
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
     }
 
     componentDidMount() {
@@ -34,24 +27,12 @@ class Home extends Component {
 
 
     getItems() {
-        let cb = function (response) {
-
-            let parsedResponse = JSON.parse(response);
-            if (this.state.category === 'all') {
-
-                this.setState({ itemsDisplayed: this.state.items, items: parsedResponse.result })
-                return
-            }
-            let itemsArr = this.state.items.filter(function (item) {
-                return item.category === this.state.category
-            }.bind(this))
-
-            this.setState({ itemsDisplayed: itemsArr, items: parsedResponse.result })//need to return array of items from server
-        }
-        cb = cb.bind(this)
+       
         fetch("/getAllItems") //confirm name
-            .then(response => response.text())
-            .then(response => {
+            .then(function (x) {
+                return x.text()
+            })
+            .then(function (response) {
                 let parsedResponse = JSON.parse(response);
                 if (this.state.category === 'all') {
                     this.setState({ itemsDisplayed: parsedResponse.result })
@@ -61,7 +42,7 @@ class Home extends Component {
                     return item.category === this.state.category
                 }.bind(this))
                 this.setState({ itemsDisplayed: itemsArr })//need to return array of items from server
-            })
+            }.bind(this))
             .catch(err => console.log(err));
 
 
@@ -86,6 +67,35 @@ class Home extends Component {
             alert('You must be logged in to add an item')
         }
 
+    }
+
+    handleShoppingCart(){
+        if (this.props.sessionID) {
+            this.props.history.push('/cart/')
+        } else {
+            alert('You must be logged in to access shopping cart')
+        }
+    }
+
+    handleSearchChange(event) {
+        let search = event.target.value
+        this.setState({searchInput:search})
+    }
+
+    handleSearchSubmit(event) {
+        event.preventDefault()
+        fetch('/search', {
+            method: 'POST',
+            body:JSON.stringify({
+                query: this.state.searchInput
+            })
+        }).then(function (x) {
+            return x.text()
+        }).then(function(res){
+            let parsed = JSON.parse(res)
+            this.setState({ itemsDisplayed: parsed })
+        }.bind(this))
+        this.setState({searchInput: ''})
     }
 
     render() {
@@ -130,9 +140,16 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div>{this.state.itemsDisplayed.map(this.renderItems)}</div>
                 </div>
-
+                <div>
+                    <form onSubmit={this.handleSearchSubmit}>
+                        Search:&nbsp;
+                        <input onChange={this.handleSearchChange} value={this.state.searchInput} type='search'/>
+                        <input type='submit'/>
+                    </form>
+                </div>
+                <div><button onClick={this.handleShoppingCart}>Shopping Cart</button></div>
+                <div>{this.state.itemsDisplayed.map(this.renderItems)}</div>
             </div>
         )
     }

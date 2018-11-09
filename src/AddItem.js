@@ -12,7 +12,7 @@ class AddItem extends Component {
             price: null,
             description: '',
             sessionID: props.sessionID,
-            category: '',
+            category: 'clothing',
             username: props.username
         }
         this.handleNameChange = this.handleNameChange.bind(this)

@@ -22,7 +22,9 @@ let reducer = function( state, action){
             itemID: action.itemID,
             name: action.name,
             description: action.description,
-            price: action.price
+            price: action.price,
+            image: action.image
+
         })}
     }
 

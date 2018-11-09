@@ -6,9 +6,10 @@ class ShoppingCart extends Component {
     
     showItems(item){
         return(<div>
-            <div>{item.name}</div>
-            <div>{item.description}</div>
-            <div>{item.price}</div>
+            <img src={'/' + item.image}></img>
+            <div>Name: {item.name}</div>
+            <div>Description: {item.description}</div>
+            <div>Price: {item.price}$</div>
             </div>)
     }
     render() {
