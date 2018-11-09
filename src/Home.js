@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
 import './home.css';
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router'
 
 
 class Home extends Component {
@@ -28,58 +28,73 @@ class Home extends Component {
         this.handleAddItem = this.handleAddItem.bind(this)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getItems()
     }
 
 
     getItems() {
-        fetch("/getAllItems") //confirm name
-        .then(response => response.text())
-        .then(response => {
-          let parsedResponse = JSON.parse(response);
-          this.setState({ items: parsedResponse.result });
-          if (this.state.category === 'all') {
-            this.setState({itemsDisplayed: parsedResponse.result})
-            return
+        let cb = function (response) {
+
+            let parsedResponse = JSON.parse(response);
+            if (this.state.category === 'all') {
+
+                this.setState({ itemsDisplayed: this.state.items, items: parsedResponse.result })
+                return
+            }
+            let itemsArr = this.state.items.filter(function (item) {
+                return item.category === this.state.category
+            }.bind(this))
+
+            this.setState({ itemsDisplayed: itemsArr, items: parsedResponse.result })//need to return array of items from server
         }
-        let itemsArr = parsedResponse.result.filter(function (item){
-            return item.category === this.state.category
-        }.bind(this))
-        this.setState({itemsDisplayed: itemsArr})//need to return array of items from server
-        })
-        .catch(err => console.log(err));
-        
+        cb = cb.bind(this)
+        fetch("/getAllItems") //confirm name
+            .then(response => response.text())
+            .then(response => {
+                let parsedResponse = JSON.parse(response);
+                if (this.state.category === 'all') {
+                    this.setState({ itemsDisplayed: parsedResponse.result })
+                    return
+                }
+                let itemsArr = parsedResponse.result.filter(function (item) {
+                    return item.category === this.state.category
+                }.bind(this))
+                this.setState({ itemsDisplayed: itemsArr })//need to return array of items from server
+            })
+            .catch(err => console.log(err));
+
+
     }
 
     renderItems(item) {
         //check that the variable names match what gets returned from the fetch, example image, itemID, price, description
         return (<div className='items'>
-                <img src={item.image}></img>
-                <div>
-                <div>Product name: <Link to= {"/details/" + item.itemID}>{item.name}</Link> </div> 
+            <img src={item.image}></img>
+            <div>
+                <div>Product name: <Link to={"/details/" + item.itemID}>{item.name}</Link> </div>
                 <div>Price: {item.price}$</div>
                 <div>Description: {item.description}</div>
-                </div>
-            </div>)
+            </div>
+        </div>)
     }
 
     handleAddItem() {
         if (this.props.sessionID) {
-            this.props.history.push('/addItem/')  
-        }else{
+            this.props.history.push('/addItem/')
+        } else {
             alert('You must be logged in to add an item')
         }
-          
+
     }
 
-    render(){
+    render() {
 
         return (
             <div className='homepage'>
                 <div>
-                <Link to={"/login/"}> Login </Link>
-                <Link to={"/signup/"}> Signup </Link>
+                    <Link to={"/login/"}> Login </Link>
+                    <Link to={"/signup/"}> Signup </Link>
                 </div>
                 <div>Alibay logo here</div>
                 <div>
@@ -89,42 +104,43 @@ class Home extends Component {
                     <div className="dropdown">
                         <button className="dropbtn">Categories</button>
                         <div className="dropdown-content">
-                        <div onClick={function () {
-                                this.setState({category: 'all'})
+                            <div onClick={function () {
+                                this.setState({ category: 'all' })
                                 this.getItems()
                             }.bind(this)}>
-                            All items
+                                All items
                             </div>
                             <div onClick={function () {
-                                this.setState({category: 'clothing'})
+                                this.setState({ category: 'clothing' })
                                 this.getItems()
                             }.bind(this)}>
-                            Clothing
+                                Clothing
                             </div>
                             <div onClick={function () {
-                                this.setState({category: 'home'})
+                                this.setState({ category: 'home' })
                                 this.getItems()
                             }.bind(this)}>
-                            Home
+                                Home
                             </div>
                             <div onClick={function () {
-                                this.setState({category: 'electronics'})
+                                this.setState({ category: 'electronics' })
                                 this.getItems()
                             }.bind(this)}>
-                            Electronics
+                                Electronics
                             </div>
                         </div>
                     </div>
                     <div>{this.state.itemsDisplayed.map(this.renderItems)}</div>
                 </div>
-               
+
             </div>
         )
     }
 }
 
-let connectedHome = connect(function(store){
-    return {sessionID: store.session
-            }
-  })(withRouter(Home))
+let connectedHome = connect(function (store) {
+    return {
+        sessionID: store.session
+    }
+})(withRouter(Home))
 export default connectedHome

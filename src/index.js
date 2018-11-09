@@ -17,13 +17,22 @@ let reducer = function( state, action){
     if(action.type === "setUsername") {
         return {...state, username: action.username}
     }
+    if(action.type === "addToCart"){
+        return{...state, cartItems: state.cartItems.concat({
+            itemID: action.itemID,
+            name: action.name,
+            description: action.description,
+            price: action.price
+        })}
+    }
 
     return state
 }
 //CreateStore:
 const store = createStore(
     reducer, // reducer
-    {session: undefined}, // initial state
+    {session: undefined,
+    cartItems:[]}, // initial state
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

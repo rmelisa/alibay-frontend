@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
 import Home from './Home.js'
 import AddItem from './AddItem.js'
+import ShoppingCart from './ShoppingCart'
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
       showLogin: false
     }
     this.renderAddItem = this.renderAddItem.bind(this)
+    this.renderCart = this.renderCart.bind(this)
   }
 
   renderLogin(routerData) {
@@ -45,6 +47,9 @@ class App extends Component {
     let username = routerData.match.params.username;
     return (<Seller username={username}/>)
 }
+renderCart(routerData){
+  return(<ShoppingCart/>)
+}
   
 
   render() {
@@ -55,6 +60,7 @@ class App extends Component {
           <Route exact={true} path='/login/' render={this.renderLogin} />
           <Route exact={true} path='/signup/' render={this.renderSignup} />
           <Route exact={true} path='/addItem/' render={this.renderAddItem} />
+          <Route exact={true} path='/cart/' render={this.renderCart} />
           <Route exact={true} path='/seller/:username' render={this.renderSeller}/>
           <Route exact={true} path= '/details/:itemID' render={this.renderDetails} />
         </div>

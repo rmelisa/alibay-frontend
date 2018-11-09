@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 // import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class Seller extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class Seller extends Component {
         this.getAllReviews =this.getAllReviews.bind(this)
         this.renderReviews = this.renderReviews.bind(this)
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getAllReviews()
     }
 
@@ -54,7 +54,7 @@ class Seller extends Component {
         this.setState({reviewInput: ''})
 
     }
-    getAllReviews(){
+    getAllReviews() {
         let callBack = function (response) {
             let parsed = JSON.parse(response)
             this.setState({reviews: parsed.result})
@@ -85,7 +85,7 @@ class Seller extends Component {
             Add a review:
         <form onSubmit={this.handleSubmit}>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
-                <input type="submit"/>
+                <input type="submit" />
             </form>
         </div>)
     }

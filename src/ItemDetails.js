@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux'
 import Seller from './seller.js'
+import { withRouter } from 'react-router'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
+import Checkout from './Checkout.js'
 
 
 
@@ -12,9 +14,9 @@ class ItemDetails extends Component {
         this.state = {
             item: {}
         }
+        this.handleClick = this.handleClick.bind(this)
     }
     componentDidMount() {
-
         let callBack = function (response) {
             let parsed = JSON.parse(response)
             this.setState({
@@ -49,11 +51,22 @@ class ItemDetails extends Component {
         }).then(callBack)
 
     }
-    
+    handleClick(event) {
+        event.preventDefault();
+        this.props.dispatch({
+            type: "addToCart",
+            itemID :this.props.itemID,
+            name: this.state.item.name,
+            description: this.state.item.description,
+            price: this.state.item.price
+        })
+        this.props.history.push('/cart')
+
+    }
 
     render() {
         return (
-            <div className="flex-ItemDetails">
+            <div className="ItemDetails">
 
                 <div>Item Details:</div>
                 <div>
@@ -66,7 +79,7 @@ class ItemDetails extends Component {
                 <div>Seller:<Link to={"/seller/" + this.state.item.username}>{this.state.item.username}</Link> </div>
                 <form>
                     <div className="button">
-                        <input type="submit" />
+                        <input type="submit" value="Add to cart" onClick={this.handleClick} />
                     </div>
                 </form>
             </div>)
@@ -74,5 +87,5 @@ class ItemDetails extends Component {
 }
 
 
-let connectedItemDetails = connect()(ItemDetails)
+let connectedItemDetails = connect()(withRouter(ItemDetails))
 export default connectedItemDetails

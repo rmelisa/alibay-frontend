@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
 import { connect } from 'react-redux'
+import Checkout from './Checkout'
 
 class ShoppingCart extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            item :{}
-        }
-
+    
+    showItems(item){
+        return(<div>
+            <div>{item.name}</div>
+            <div>{item.description}</div>
+            <div>{item.price}</div>
+            </div>)
     }
     render() {
-        return (<div className="shopping-cart">
-            <div></div>
+        return (<div className="shoppingCart">
+            <div>{this.props.items.map(this.showItems)}</div>
+            <Checkout/>
         </div>)
     }
 }
+const mapStateToProps = (state) => {
+    return { items: state.cartItems }
+}
+
+let connectedMapStateToStore = connect(mapStateToProps)(ShoppingCart)
+export default connectedMapStateToStore;
