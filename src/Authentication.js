@@ -1,36 +1,37 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux'
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router'
+import './Authentication.css';
 
-class Authentication extends Component{
-    constructor(props){
+class Authentication extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            usernameInput : "",
-            passwordInput : ""
+            usernameInput: "",
+            passwordInput: ""
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    handleUsernameChange(event){
+    handleUsernameChange(event) {
         this.setState({
-            usernameInput : event.target.value
+            usernameInput: event.target.value
         })
     }
-    handlePasswordChange(event){
+    handlePasswordChange(event) {
         this.setState({
-            passwordInput : event.target.value
+            passwordInput: event.target.value
         })
 
     }
-    handleSubmit(event){
+    handleSubmit(event) {
         event.preventDefault()
         let body = JSON.stringify({
             username: this.state.usernameInput,
             password: this.state.passwordInput
         })
-        let cb = function(resBody){
+        let cb = function (resBody) {
             let parsed = JSON.parse(resBody)
             if (parsed.status) {
                 this.props.dispatch({  // passing this action to the reducer by specifing the type of action
@@ -44,28 +45,33 @@ class Authentication extends Component{
 
                 })
                 this.props.history.push('/')
-            }else{
+            } else {
                 alert('Failed login or signup, please try again')
             }
         }
         cb = cb.bind(this)
-        fetch(this.props.endpoint,{
+        fetch(this.props.endpoint, {
             method: 'POST',
             body: body // body is defined above
-        }).then(function(res){
+        }).then(function (res) {
             return res.text()
         }).then(cb)
     }
-    
-    render(){
-        return(<div>
-        <form onSubmit={this.handleSubmit}>
-            Username:
-            <input type="text" onChange={this.handleUsernameChange}></input>
-            Password:
-            <input type="text" onChange={this.handlePasswordChange}></input>
-            <input type ="submit"></input>
-        </form></div>)
+
+    render() {
+        return (
+        
+            <div className="main">
+            <img className="title-logo" src="/shabby.png"></img>
+            <p className="title1">Enter To Begin Shopping!</p>
+                <form className="signup" onSubmit={this.handleSubmit}>
+                    Username:
+            <input className="signup1" type="text" onChange={this.handleUsernameChange}></input>
+                    Password:
+            <input className="signup1" type="password" onChange={this.handlePasswordChange}></input>
+                    <input className="signup-btn" type="submit" value="ENTER"></input>
+                </form>
+            </div>)
     }
 }
 let connectedAuthentication = connect()(withRouter(Authentication))

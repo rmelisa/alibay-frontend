@@ -1,0 +1,82 @@
+.title-seller{
+        display:flex;
+        height: 100px;
+        text-align: center;
+        align-items: center;
+    
+}
+
+.seller-details{
+display: flex;
+flex-direction:row;
+align-items: center;
+padding: 10px;
+height: 90px;
+background: pink;
+justify-content: center;
+
+}
+
+.back-to-main{
+    float:left;
+    background-color:  rgb(115, 178, 180);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 100px;
+}
+
+.seller-titles{
+    padding-bottom: 10px;
+    color: rgb(115, 178, 180);
+    margin-top: 10px;
+    margin-bottom: 10px;
+   
+    
+}
+
+.seller-reviews{
+display: flex;
+flex-direction: column;
+margin-top: 20px;
+margin-left: 500px;
+font-size: 20px;
+
+}
+
+.single-review{
+    border-style: solid;
+    border-color: pink;
+    border-width: 2px;
+    position: relative;
+    width: 250px;
+    font-size: 12px;
+    font-style: oblique;
+    padding: 10px;
+    
+}
+
+.review-box{
+
+margin-left:-105px;
+font-size: 15px;
+}
+
+.submit-area{
+    display: flex;
+    flex-direction: column;
+    position: absolute
+}
+
+.submit-review{
+    background-color:  rgb(115, 178, 180);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 180px;
+    margin-bottom:20px;
+}

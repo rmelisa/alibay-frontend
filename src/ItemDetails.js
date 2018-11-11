@@ -5,6 +5,7 @@ import Seller from './seller.js'
 import { withRouter } from 'react-router'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
 import Checkout from './Checkout.js'
+import './itemDetails.css';
 
 
 
@@ -57,7 +58,7 @@ class ItemDetails extends Component {
         if (this.props.sessionID) {
             this.props.dispatch({
                 type: "addToCart",
-                itemID :this.props.itemID,
+                itemID: this.props.itemID,
                 name: this.state.item.name,
                 description: this.state.item.description,
                 price: this.state.item.price,
@@ -71,30 +72,33 @@ class ItemDetails extends Component {
 
     }
 
-    backToHome(){
+    backToHome() {
         this.props.history.push('/')
     }
 
     render() {
         return (
-            <div className="ItemDetails">
-
-                <div>Item Details:</div>
-                <div>
-                    <img src={'/' + this.state.item.image}></img>
-                  
+            <div>
+                <div className="itemDetails">
+                    <img className="title-det-add" src="/shabby.png"></img>
                 </div>
-                <div>Title:{this.state.item.name}</div>
-                <div>Price:{this.state.item.price}</div>
-                <div>Details:{this.state.item.description}</div>
-                <div>Seller:<Link to={"/seller/" + this.state.item.username}>{this.state.item.username}</Link> </div>
-                <form>
-                    <div className="button">
-                        <input type="submit" value="Add to cart" onClick={this.handleClick} />
+                <div>
+                    <button className="back-to-home" onClick={this.backToHome}>Back to Shopping</button>
+                </div>
+
+                <div className="item-details">
+                    <img className="item-image" src={'/' + this.state.item.image}></img>
+
+                    <div className="item-det">
+                    <div className="item-list"> Title:&nbsp;{this.state.item.name}</div>
+                    <div className="item-list">Price:&nbsp;${this.state.item.price}</div>
+                    <div className="item-list">Description:&nbsp;{this.state.item.description}</div>
+                    <div className="item-list">Seller:&nbsp;&nbsp;<Link to={"/seller/" + this.state.item.username}>{this.state.item.username}</Link> </div>
+                    <input className="add-to-btn" type="submit" value="Add to cart" onClick={this.handleClick} />
                     </div>
-                </form>
-                <button onClick={this.backToHome}>Back to Shopping</button>
-                
+                </div>
+
+
             </div>)
     }
 }

@@ -3,6 +3,7 @@ import './App.css';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
+import './seller.css';
 
 class Seller extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class Seller extends Component {
         this.handleUsernameInput = this.handleUsernameInput.bind(this)
         this.handleReviewInput = this.handleReviewInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.getAllReviews =this.getAllReviews.bind(this)
+        this.getAllReviews = this.getAllReviews.bind(this)
         this.renderReviews = this.renderReviews.bind(this)
         this.backToHome = this.backToHome.bind(this)
     }
@@ -24,7 +25,7 @@ class Seller extends Component {
 
     handleUsernameInput(event) {
         this.setState({
-            usrernameInput: event.target.value
+            usernameInput: event.target.value
         })
     }
     handleReviewInput(event) {
@@ -43,7 +44,7 @@ class Seller extends Component {
             if (parsed.status) {
                 this.getAllReviews()
             }
-            
+
         }
         callBack = callBack.bind(this)
         fetch('/addReview', { //need an endpoint in server.js 
@@ -53,46 +54,57 @@ class Seller extends Component {
             return res.text()
         }).then(callBack)
 
-        this.setState({reviewInput: ''})
+        this.setState({ reviewInput: '' })
 
     }
     getAllReviews() {
         let callBack = function (response) {
             let parsed = JSON.parse(response)
-            this.setState({reviews: parsed.result})
+            this.setState({ reviews: parsed.result })
         }
         callBack = callBack.bind(this)
-        fetch('/getAllReviews',{
+        fetch('/getAllReviews', {
             method: 'POST',
-            body:JSON.stringify({
+            body: JSON.stringify({
                 username: this.props.username
             })
-        }).then(function(x){
+        }).then(function (x) {
             return x.text()
         }).then(callBack)
     }
 
-    renderReviews(review){
+    renderReviews(review) {
         return (
-            <li>{review}</li>
+            <p className="single-review">{review}</p>
         )
     }
-    backToHome(){
+    backToHome() {
         this.props.history.push('/')
     }
 
     render() {
         return (<div className="sellerPage">
-            Seller name:
-        <div>{this.state.usrernameInput}</div>
-            Reviews:
-        <div>Reviews: <ul>{this.state.reviews.map(this.renderReviews)}</ul></div>
-            Add a review:
-        <form onSubmit={this.handleSubmit}>
-                <input type="textarea" onChange={this.handleReviewInput}></input>
-                <input type="submit" />
-        </form>
-        <button onClick={this.backToHome}>Back to Shopping</button>
+            <div>
+                <div className="seller-details">
+                    <img className="title-seller" src="/shabby.png"></img>
+                </div>
+                <div>
+                    <button className="back-to-main" onClick={this.backToHome}>Back to Shopping</button>
+                </div>
+            </div>
+            <div className="seller-reviews">
+                <div className="seller-titles">Seller: &nbsp;&nbsp;
+                {this.props.username}</div>
+
+                <div>{this.state.reviews.map(this.renderReviews)}</div>
+                <div className="seller-titles">Add a review for the Seller!</div>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="submit-area">
+                        <textarea rows="10" cols="60" className="review-box" type="text" onChange={this.handleReviewInput}></textarea>
+                        <input className="submit-review" type="submit" />
+                    </div>
+                </form>
+            </div>
         </div>)
     }
 }

@@ -1,14 +1,15 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { Route, BrowserRouter, Link } from 'react-router-dom'
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router'
+import './AddItem.css';
 
 class AddItem extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
+        this.state = {
             filename: 'placeholder.png',
-            name: '', 
+            name: '',
             price: null,
             description: '',
             sessionID: props.sessionID,
@@ -27,83 +28,92 @@ class AddItem extends Component {
     uploadFile(x) {
         var filename = x.name;
         var fileExtension = filename.split('.').pop();
-        fetch('/pics?ext=' + fileExtension,{method: "POST", body: x})
-        .then(function(res){
-            return res.text()
-        }).then(function(res){
-            let parsed = res//check what is being sent back
-            this.setState({filename: parsed})
-        }.bind(this))
+        fetch('/pics?ext=' + fileExtension, { method: "POST", body: x })
+            .then(function (res) {
+                return res.text()
+            }).then(function (res) {
+                let parsed = res//check what is being sent back
+                this.setState({ filename: parsed })
+            }.bind(this))
     }
 
-    handleNameChange(event){
+    handleNameChange(event) {
         let name = event.target.value
         this.setState({
             name: name
         })
     }
 
-    handlePriceChange(event){
+    handlePriceChange(event) {
         let price = event.target.value
         this.setState({
             price: price
         })
     }
 
-    handleDescriptionChange(event){
+    handleDescriptionChange(event) {
         let description = event.target.value
         this.setState({
             description: description
         })
     }
 
-    handleCategory(event){
+    handleCategory(event) {
         let category = event.target.value
         this.setState({
             category: category
         })
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
         event.preventDefault()
         fetch('/addItem', {
             method: 'POST',
             body: JSON.stringify(this.state)
-        }).then(function(res){
+        }).then(function (res) {
             return res.text()
-        }).then(function(res){
+        }).then(function (res) {
             let parsed = JSON.parse(res)//check what is being sent back
-            if(parsed.status){
+            if (parsed.status) {
                 alert('item added succesfully')
                 this.props.history.push('/')
-            }else {
+            } else {
                 alert('item was not added succesfully, please try again')
             }
         }.bind(this))
     }
 
-    backToHome(){
+    backToHome() {
         this.props.history.push('/')
     }
 
     render() {
         return (<div>
-            <div>Add item for sale</div>
-            <form onSubmit={this.handleSubmit}> 
-                <img src={`/${this.state.filename}`}></img>
-                <div>Upload image: <input type="file" id="input" onChange={e => this.uploadFile(e.target.files[0])} /> </div>
-                <div>Name: <input type='text' onChange={this.handleNameChange}/></div>
-                <div>Price: <input type='text' onChange={this.handlePriceChange}/></div>
-                <div>Description: <input type='text' onChange={this.handleDescriptionChange}/></div>
-                <div>Choose category:
-                    <select onChange={this.handleCategory}>
-                        <option value="clothing">Clothing</option>
-                        <option value="home">Home</option>
-                        <option value="electronics">Electronics</option>
-                    </select>
-                </div> 
-                <div><input type='submit'/></div>  
-                <button onClick={this.backToHome}>Back to Shopping</button>
+            <div className="nav-add">
+
+                <img className="title-add" src="/shabby.png"></img>
+            </div>
+            <button className="keep-shopping" onClick={this.backToHome}>Continue Shopping</button>
+            <form className="form-style" onSubmit={this.handleSubmit}>
+            <div className="add-details">
+                <div className="add-image">
+                    <img className="add-image" src={`/${this.state.filename}`}></img>
+                </div>
+                    <div className="file-input">
+                    <input id="hide" type="file" onChange={e => this.uploadFile(e.target.files[0])} /> 
+                    </div>
+                    <div><input className="input-field" type='text' onChange={this.handleNameChange} placeholder="Item Name" /></div>
+                    <div><input className="input-field" type='text' onChange={this.handlePriceChange} placeholder="Item Price"/></div>
+                    <div><input className="input-field" type='text' onChange={this.handleDescriptionChange} placeholder="Item Description" /></div>
+                    <div>
+                    <select className="category-select"onChange={this.handleCategory}>
+                            <option value="clothing">Clothing</option>
+                            <option value="home">Home</option>
+                            <option value="electronics">Electronics</option>
+                        </select>
+                    </div>
+                    <div><input className="add-item-btn" type='submit' value="Add Item" /></div>
+                </div>
             </form>
 
 
@@ -111,10 +121,10 @@ class AddItem extends Component {
     }
 }
 
-let connectedAddItem = connect(function(store){
+let connectedAddItem = connect(function (store) {
     return {
         sessionID: store.session,
         username: store.username
-            }
-  })(withRouter(AddItem))
+    }
+})(withRouter(AddItem))
 export default connectedAddItem
