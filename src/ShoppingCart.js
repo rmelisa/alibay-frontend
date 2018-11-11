@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import Checkout from './Checkout'
+import { withRouter } from 'react-router'
 
 class ShoppingCart extends Component {
     
@@ -69,5 +70,5 @@ const mapStateToProps = (state) => {
     return { items: state.cartItems }
 }
 
-let connectedMapStateToStore = connect(mapStateToProps)(ShoppingCart)
+let connectedMapStateToStore = connect(mapStateToProps)(withRouter(ShoppingCart))
 export default connectedMapStateToStore;

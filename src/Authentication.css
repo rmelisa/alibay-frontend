@@ -1,0 +1,43 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-bottom: 600px;
+    padding-top: 100px;
+    background-color: pink; 
+    align-items: center;
+}
+.signup{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: pink; 
+    align-items: center;
+
+}
+
+.signup1{
+    margin: 10px;
+    width:210px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.signup-btn{
+    background-color:white;
+    width: 140px;    
+    padding: 20px;
+    margin: 20px;
+    background-color: rgb(115, 178, 180)
+}
+.title1{
+    font-size: 25px;
+    color:rgb(115, 178, 180);
+    font-family: 'Times New Roman', Times, serif
+   
+    
+
+}
+.title-logo{
+    height: 150px;
+}

@@ -1,0 +1,70 @@
+.title-cart{
+    display:flex;
+    height: 100px;
+    text-align: center;
+    align-items: center;
+}
+
+.shopping-cart{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    padding: 10px;
+    height: 90px;
+    background: pink;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+        
+}
+.cart-items{
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    width: 150px;
+    margin-top: 80px;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 300px;
+    
+    
+    
+}
+.cart-desc{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 10px;
+    margin-left: 10px;
+    align-content: flex-start;
+    color:  rgb(115, 178, 180);
+    
+}
+
+.total-price{
+    display: flex;
+    float: left;
+    padding: 10px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    margin-left: 100px;
+    color:  rgb(115, 178, 180);
+    border-style: solid;
+    border-color: pink;
+    border-width: 4px;
+
+}
+
+.cart-title{
+    text-align: center;
+    color:  rgb(115, 178, 180);
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(207, 204, 204);
+    padding-top: 10px;
+    margin: 0;
+    height: 44px;
+    align-content: center;
+
+}
