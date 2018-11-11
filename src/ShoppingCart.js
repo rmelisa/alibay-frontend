@@ -13,6 +13,7 @@ class ShoppingCart extends Component {
     //     this.increaseItem = this.increaseItem.bind(this)
     //     this.decreaseItem = this.decreaseItem.bind(this)
         this.getTotal = this.getTotal.bind(this)
+        this.backToHome = this.backToHome.bind(this)
     }
     // increaseItem(event) {
     //     event.preventDefault()
@@ -38,6 +39,9 @@ class ShoppingCart extends Component {
         //     return total
     
 }
+backToHome(){
+    this.props.history.push('/')
+}
     showItems(item) {
       
        
@@ -56,6 +60,7 @@ class ShoppingCart extends Component {
             {/* <input type="submit" value="+" onClick={this.increaseItem} />
             <input type="submit" value="-" onClick={this.decreaseItem} /> */}
             <div>Total price:{this.getTotal(this.props.items)}</div>
+            <button onClick={this.backToHome}>Back to Shopping</button>
             <Checkout />
         </div>)
     }

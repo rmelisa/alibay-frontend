@@ -11,7 +11,7 @@ class Seller extends Component {
             reviewInput: "",
             reviews: []
         }
-        this.handleUsernameInput = this.handleUsernameInput.bind(this)
+        // this.handleUsernameInput = this.handleUsernameInput.bind(this)
         this.handleReviewInput = this.handleReviewInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.getAllReviews =this.getAllReviews.bind(this)
@@ -22,11 +22,11 @@ class Seller extends Component {
         this.getAllReviews()
     }
 
-    handleUsernameInput(event) {
-        this.setState({
-            usrernameInput: event.target.value
-        })
-    }
+    // handleUsernameInput(event) {
+    //     this.setState({
+    //         usrernameInput: event.target.value
+    //     })
+    // }
     handleReviewInput(event) {
         this.setState({
             reviewInput: event.target.value
@@ -83,10 +83,9 @@ class Seller extends Component {
 
     render() {
         return (<div className="sellerPage">
-            Seller name:
-        <div>{this.state.usrernameInput}</div>
-            Reviews:
-        <div>Reviews: <ul>{this.state.reviews.map(this.renderReviews)}</ul></div>
+            Seller name:{this.props.usrername}
+            <div>Reviews:</div>
+        <div><ul>{this.state.reviews.map(this.renderReviews)}</ul></div>
             Add a review:
         <form onSubmit={this.handleSubmit}>
                 <input type="textarea" onChange={this.handleReviewInput}></input>
