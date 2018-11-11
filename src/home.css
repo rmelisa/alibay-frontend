@@ -1,29 +1,108 @@
 /* Dropdown Button */
-.dropbtn {
-    background-color: rgb(76, 172, 175);
+
+.home-container {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    padding: 10px;
+    height: 90px;
+    background: pink;
+}
+.main-container{
+display: flex;
+flex-direction:row;
+justify-content: space-between;
+background-color:rgb(207, 204, 204);
+align-content: flex-start
+
+}
+.login-signup{
+    color: rgb(115, 178, 180);
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 20px;
+
+}
+.title{
+    height: 105px;
+}
+.add-item-btn{
+    background-color: rgb(115, 178, 180);
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
 }
 
-/* The container <div> - needed to position the dropdown content */
+.btn{
+    margin-top: 20px;
+    
+}
+.dropbtn {
+    background-color:  rgb(115, 178, 180);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
 .dropdown {
     position: relative;
     display: inline-block;
 }
+.cart-btn{
+    background-color: rgb(115, 178, 180);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+/* The container <div> - needed to position the dropdown content */
+
+
+.search{
+    display: flex;
+    
+}
+.magnify-img{
+    height: 25px;
+    padding-top: 10px;
+}
+.magnify {
+    background-position: -529px -61px;
+    height: 14px;
+    width: 14px;
+    
+    position: inherit;
+    top: 12px;
+    right: 0;
+    cursor: pointer;
+}
+.search-box{
+    padding: 10px 2px 7px;
+    width: 200px;
+    border: 0;
+    border-bottom: 1px solid #1a1a1a;
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 0;
+    -webkit-appearance: none;
+    background: rgb(206, 203, 203)
+}
 
 /* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
 /* Links inside the dropdown */
+
 .dropdown-content div {
     color: black;
     padding: 12px 16px;
@@ -32,18 +111,54 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content div:hover {background-color: #ddd;}
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color:  rgb(76, 172, 175);}
-
-.items{
-    display: flex;
+.dropdown-content div:hover {
+    background-color: pink;
 }
 
-.mainContainer{
+/* Show the dropdown menu on hover */
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
+.dropdown:hover .dropbtn {
+    background-color: rgb(115, 178, 180);
+}
+.image-container{
+    margin: 60px;
+}
+
+.items {
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 30px;
+    text-align: center;
+
+
+
+}
+.item-images{
+    display: flex;
+    flex-direction:row;
+    height:250px;
+    width:200px;
+    
+}
+
+.desc-1{
+    margin: 5px;
+    font-size: 12px;
+
+}
+.desc-2{
+    margin: 5px;
+    font-size: 12px;
+}
+.desc-3{
+    margin: 5px;
+    font-size: 12px;
 }

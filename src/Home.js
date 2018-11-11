@@ -10,7 +10,7 @@ class Home extends Component {
         super(props)
         this.state = {
             category: 'all', //need to agree on categories
-            searchInput: '', 
+            searchInput: '',
             itemsDisplayed: []
         }
         this.getItems = this.getItems.bind(this)
@@ -27,7 +27,6 @@ class Home extends Component {
 
 
     getItems() {
-       
         fetch("/getAllItems") //confirm name
             .then(function (x) {
                 return x.text()
@@ -51,11 +50,13 @@ class Home extends Component {
     renderItems(item) {
         //check that the variable names match what gets returned from the fetch, example image, itemID, price, description
         return (<div className='items'>
-            <img src={item.image}></img>
             <div>
-                <div>Product name: <Link to={"/details/" + item.itemID}>{item.name}</Link> </div>
-                <div>Price: {item.price}$</div>
-                <div>Description: {item.description}</div>
+                <div className="image-container">
+                    <img className="item-images" src={item.image}></img>
+                    <div className="desc-1"><Link to={"/details/" + item.itemID}>{item.name}</Link> </div>
+                    <div className="desc-2">Price: {item.price}$</div>
+                    <div className="desc-3">Description: {item.description}</div>
+                </div>
             </div>
         </div>)
     }
@@ -64,12 +65,12 @@ class Home extends Component {
         if (this.props.sessionID) {
             this.props.history.push('/addItem/')
         } else {
-            alert('You must be logged in to add an item')
+            alert('Sorry! You must be logged in to add an item')
         }
 
     }
 
-    handleShoppingCart(){
+    handleShoppingCart() {
         if (this.props.sessionID) {
             this.props.history.push('/cart/')
         } else {
@@ -79,78 +80,89 @@ class Home extends Component {
 
     handleSearchChange(event) {
         let search = event.target.value
-        this.setState({searchInput:search})
+        this.setState({ searchInput: search })
     }
 
     handleSearchSubmit(event) {
         event.preventDefault()
         fetch('/search', {
             method: 'POST',
-            body:JSON.stringify({
+            body: JSON.stringify({
                 query: this.state.searchInput
             })
         }).then(function (x) {
             return x.text()
-        }).then(function(res){
+        }).then(function (res) {
             let parsed = JSON.parse(res)
             this.setState({ itemsDisplayed: parsed })
         }.bind(this))
-        this.setState({searchInput: ''})
+        this.setState({ searchInput: '' })
     }
 
     render() {
 
         return (
-            <div className='homepage'>
-                <div>
-                    <Link to={"/login/"}> Login </Link>
-                    <Link to={"/signup/"}> Signup </Link>
-                </div>
-                <div>Alibay logo here</div>
-                <div>
-                    <button onClick={this.handleAddItem}>Add item to sell</button>
-                </div>
-                <div className='mainContainer'>
-                    <div className="dropdown">
-                        <button className="dropbtn">Categories</button>
-                        <div className="dropdown-content">
-                            <div onClick={function () {
-                                this.setState({ category: 'all' })
-                                this.getItems()
-                            }.bind(this)}>
-                                All items
-                            </div>
-                            <div onClick={function () {
-                                this.setState({ category: 'clothing' })
-                                this.getItems()
-                            }.bind(this)}>
-                                Clothing
-                            </div>
-                            <div onClick={function () {
-                                this.setState({ category: 'home' })
-                                this.getItems()
-                            }.bind(this)}>
-                                Home
-                            </div>
-                            <div onClick={function () {
-                                this.setState({ category: 'electronics' })
-                                this.getItems()
-                            }.bind(this)}>
-                                Electronics
-                            </div>
-                        </div>
+            <div>
+                <div className='home-container'>
+                    <div className="login-signup" >
+                        <Link className="login-signup" to={"/login/"}> Login </Link>
+                        <Link className="login-signup" to={"/signup/"}> Signup </Link>
+                    </div>
+
+                    <img className="title" src="/shabby.png"></img>
+
+                    <div className="btn">
+                        <button className="add-item-btn" onClick={this.handleAddItem}>Add Item +</button>
                     </div>
                 </div>
-                <div>
-                    <form onSubmit={this.handleSearchSubmit}>
-                        Search:&nbsp;
-                        <input onChange={this.handleSearchChange} value={this.state.searchInput} type='search'/>
-                        <input type='submit'/>
+
+                <div className='main-container'>
+                    <div className="dropdown">
+                        <button className="dropbtn">Categories</button>
+                            <div className="dropdown-content">
+                                <div onClick={function () {
+                                    this.setState({ category: 'all' })
+                                    this.getItems()
+                                }.bind(this)}>
+                                    All items
+                            </div>
+                                <div onClick={function () {
+                                    this.setState({ category: 'clothing' })
+                                    this.getItems()
+                                }.bind(this)}>
+                                    Clothing
+                            </div>
+                                <div onClick={function () {
+                                    this.setState({ category: 'home' })
+                                    this.getItems()
+                                }.bind(this)}>
+                                    Home
+                            </div>
+                                <div onClick={function () {
+                                    this.setState({ category: 'electronics' })
+                                    this.getItems()
+                                }.bind(this)}>
+                                    Electronics
+                            </div>
+
+                            </div>
+                            </div>
+
+                    <form className="search" onSubmit={this.handleSearchSubmit}>
+                        
+                        <input className = "search-box" onChange={this.handleSearchChange} value={this.state.searchInput} type='search' placeholder="Search Description Keywords"/>
+                        <img src="/magnify.png" className="magnify-img"></img>
+                        <span class="magnify"></span>
                     </form>
+                   
+               
+                
+                <div><button className="cart-btn" onClick={this.handleShoppingCart}>Shopping Cart</button></div>
+               
                 </div>
-                <div><button onClick={this.handleShoppingCart}>Shopping Cart</button></div>
-                <div>{this.state.itemsDisplayed.map(this.renderItems)}</div>
+                <div className="items">{this.state.itemsDisplayed.map(this.renderItems)}</div>
             </div>
+            
         )
     }
 }
