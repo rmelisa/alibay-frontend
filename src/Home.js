@@ -136,13 +136,13 @@ class Home extends Component {
                                     this.setState({ category: 'home' })
                                     this.getItems()
                                 }.bind(this)}>
-                                    Home
+                                    Equipment
                             </div>
                                 <div onClick={function () {
                                     this.setState({ category: 'electronics' })
                                     this.getItems()
                                 }.bind(this)}>
-                                    Electronics
+                                    Accessories
                             </div>
 
                             </div>

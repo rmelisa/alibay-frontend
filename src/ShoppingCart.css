@@ -5,6 +5,16 @@
     align-items: center;
 }
 
+.back-to-shop{
+    float:left;
+    background-color:  rgb(115, 178, 180);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 100px;
+}
+
 .shopping-cart{
     display: flex;
     flex-direction:row;

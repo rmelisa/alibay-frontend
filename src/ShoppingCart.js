@@ -63,12 +63,13 @@ backToHome(){
                 <img className="title-cart" src="/shabby.png"></img>
             </div>
             <p className="cart-title">SHOPPING CART</p>
+            <button className="back-to-shop"onClick={this.backToHome}>Back to Shopping</button>
             <div >{this.props.items.map(this.showItems)}</div>
 
             {/* <input type="submit" value="+" onClick={this.increaseItem} />
             <input type="submit" value="-" onClick={this.decreaseItem} /> */}
-            <div>Total price:{this.getTotal(this.props.items)}</div>
-            <button onClick={this.backToHome}>Back to Shopping</button>
+            
+          
             <div className="total-price">Total price:{this.getTotal(this.props.items)}</div>
             <Checkout />
         </div>)

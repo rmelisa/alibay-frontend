@@ -108,8 +108,8 @@ class AddItem extends Component {
                     <div>
                     <select className="category-select"onChange={this.handleCategory}>
                             <option value="clothing">Clothing</option>
-                            <option value="home">Home</option>
-                            <option value="electronics">Electronics</option>
+                            <option value="home">Equipment</option>
+                            <option value="electronics">Accessories</option>
                         </select>
                     </div>
                     <div><input className="add-item-btn" type='submit' value="Add Item" /></div>

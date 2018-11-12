@@ -38,18 +38,17 @@ class App extends Component {
     return (<ItemDetails itemID={itemID}/>)
   }
 
-
   renderAddItem(routerData) {
-    return (<AddItem/>)
-    
+    return (<AddItem/>) 
   }
+
   renderSeller(routerData){
     let username = routerData.match.params.username;
     return (<Seller username={username}/>)
-}
+  }
 renderCart(routerData){
   return(<ShoppingCart/>)
-}
+  }
   
 
   render() {

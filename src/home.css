@@ -25,7 +25,8 @@ align-content: flex-start
 
 }
 .title{
-    height: 105px;
+    height: 100px;
+   
 }
 .add-item-btn{
     background-color: rgb(115, 178, 180);
@@ -128,14 +129,14 @@ align-content: flex-start
     background-color: rgb(115, 178, 180);
 }
 .image-container{
-    margin: 60px;
+    margin: 40px;
 }
 
 .items {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin: 30px;
+    margin: 25px;
     text-align: center;
 
 
