@@ -72,6 +72,7 @@ backToHome(){
           
             <div className="total-price">Total price:{this.getTotal(this.props.items)}</div>
             <Checkout />
+            
         </div>)
     }
 }

@@ -12,7 +12,6 @@ class Seller extends Component {
             reviewInput: "",
             reviews: []
         }
-        // this.handleUsernameInput = this.handleUsernameInput.bind(this)
         this.handleReviewInput = this.handleReviewInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.getAllReviews = this.getAllReviews.bind(this)
@@ -23,11 +22,7 @@ class Seller extends Component {
         this.getAllReviews()
     }
 
-    // handleUsernameInput(event) {
-    //     this.setState({
-    //         usrernameInput: event.target.value
-    //     })
-    // }
+    
     handleReviewInput(event) {
         this.setState({
             reviewInput: event.target.value
